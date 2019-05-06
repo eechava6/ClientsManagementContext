@@ -1,12 +1,12 @@
 # Dependencies.
 
-MongoDB
-SBT
+MongoDB,
+SBT,
 Scala.
 
 # Dependencies to install dependencies in Mac.
 
-Homebrew
+Homebrew,
 xCode
 
 * How to install xCode: 
