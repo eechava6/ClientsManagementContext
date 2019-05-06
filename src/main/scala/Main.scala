@@ -1,6 +1,6 @@
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
-
+import org.mongodb.scala._
 import scala.concurrent.Await
 import scala.util.{Failure, Success}
 
@@ -12,6 +12,12 @@ object Main extends App {
   implicit val system: ActorSystem = ActorSystem(name = "todoapi")
   implicit val materializer: ActorMaterializer = ActorMaterializer()
   import system.dispatcher
+
+  //Start
+  val mongoClient: MongoClient = MongoClient()
+  val database: MongoDatabase = mongoClient.getDatabase("mydb")
+  val collection: MongoCollection[Document] = database.getCollection("test");
+  //End
 
   val todoRepository = new InMemoryTodoRepository(Seq(
     Todo("1", "Buy eggs", "Ran out of eggs, buy a dozen", false),
