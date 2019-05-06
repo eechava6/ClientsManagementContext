@@ -7,22 +7,22 @@ class TodoRouterListSpec extends WordSpec with Matchers with ScalatestRouteTest 
   import io.circe.generic.auto._
 
   private val doneTodo =
-    Todo("1", "Comprar leche", "El gato está sediento", true)
-
+    Todo("2", "Buy milk", "The cat is thirsty!", done=true)
   private val pendingTodo =
-    Todo("2", "Comprar huevos", "Se acabaron los huevos, comprar una docena", false)
+    Todo("1", "Buy eggs", "Ran out of eggs, buy a dozen", done=false)
 
   private val todos = Seq(doneTodo, pendingTodo)
 
-  "TodoRouter" should {
+  "A TodoRouter" should {
+
     "return all the todos" in {
       val repository = new InMemoryTodoRepository(todos)
       val router = new TodoRouter(repository)
 
       Get("/todos") ~> router.route ~> check {
         status shouldBe StatusCodes.OK
-        val response = responseAs[Seq[Todo]]
-        response shouldBe todos
+        val respTodos = responseAs[Seq[Todo]]
+        respTodos shouldBe todos
       }
     }
 
@@ -32,8 +32,8 @@ class TodoRouterListSpec extends WordSpec with Matchers with ScalatestRouteTest 
 
       Get("/todos/done") ~> router.route ~> check {
         status shouldBe StatusCodes.OK
-        val response = responseAs[Seq[Todo]]
-        response shouldBe Seq(doneTodo)
+        val respTodos = responseAs[Seq[Todo]]
+        respTodos shouldBe Seq(doneTodo)
       }
     }
 
@@ -43,8 +43,8 @@ class TodoRouterListSpec extends WordSpec with Matchers with ScalatestRouteTest 
 
       Get("/todos/pending") ~> router.route ~> check {
         status shouldBe StatusCodes.OK
-        val response = responseAs[Seq[Todo]]
-        response shouldBe Seq(pendingTodo)
+        val respTodos = responseAs[Seq[Todo]]
+        respTodos shouldBe Seq(pendingTodo)
       }
     }
 
@@ -53,7 +53,7 @@ class TodoRouterListSpec extends WordSpec with Matchers with ScalatestRouteTest 
       val router = new TodoRouter(repository)
 
       Get("/todos") ~> router.route ~> check {
-        status shouldBe StatusCodes.InternalServerError
+        status shouldBe ApiError.generic.statusCode
         val resp = responseAs[String]
         resp shouldBe ApiError.generic.message
       }
@@ -64,7 +64,7 @@ class TodoRouterListSpec extends WordSpec with Matchers with ScalatestRouteTest 
       val router = new TodoRouter(repository)
 
       Get("/todos/done") ~> router.route ~> check {
-        status shouldBe StatusCodes.InternalServerError
+        status shouldBe ApiError.generic.statusCode
         val resp = responseAs[String]
         resp shouldBe ApiError.generic.message
       }
@@ -75,10 +75,12 @@ class TodoRouterListSpec extends WordSpec with Matchers with ScalatestRouteTest 
       val router = new TodoRouter(repository)
 
       Get("/todos/pending") ~> router.route ~> check {
-        status shouldBe StatusCodes.InternalServerError
+        status shouldBe ApiError.generic.statusCode
         val resp = responseAs[String]
         resp shouldBe ApiError.generic.message
       }
     }
+
   }
+
 }

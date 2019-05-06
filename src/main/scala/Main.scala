@@ -1,31 +1,27 @@
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
-import akka.http.scaladsl.Http
 
-import scala.concurrent.ExecutionContext
 import scala.concurrent.Await
 import scala.util.{Failure, Success}
 
-object Main extends App{
+object Main extends App {
+
   val host = "0.0.0.0"
   val port = 9000
 
-  implicit val system: ActorSystem = ActorSystem("Helloworld")
+  implicit val system: ActorSystem = ActorSystem(name = "todoapi")
   implicit val materializer: ActorMaterializer = ActorMaterializer()
-  implicit val executor: ExecutionContext = system.dispatcher
   import system.dispatcher
 
   val todoRepository = new InMemoryTodoRepository(Seq(
-    Todo("1", "Comprar huevos", "Se acabaron los huevos, comprar una docena", false),
-    Todo("2", "Comprar leche", "El gato está sediento", true)
+    Todo("1", "Buy eggs", "Ran out of eggs, buy a dozen", false),
+    Todo("2", "Buy milk", "The cat is thirsty!", true),
   ))
   val router = new TodoRouter(todoRepository)
   val server = new Server(router, host, port)
 
   val binding = server.bind()
-
-  //val binding = Http().bindAndHandle(route, host, port)
-  binding.onComplete{
+  binding.onComplete {
     case Success(_) => println("Success!")
     case Failure(error) => println(s"Failed: ${error.getMessage}")
   }
