@@ -13,14 +13,7 @@ object Main extends App{
   implicit val system: ActorSystem = ActorSystem("Helloworld")
   implicit val materializer: ActorMaterializer = ActorMaterializer()
   implicit val executor: ExecutionContext = system.dispatcher
-  // import system.dispatcher
-
-  /*import akka.http.scaladsl.server.Directives._
-  def route = path("hello"){
-    get {
-      complete("Hello, World!")
-    }
-  }*/
+  import system.dispatcher
 
   val todoRepository = new InMemoryTodoRepository(Seq(
     Todo("1", "Comprar huevos", "Se acabaron los huevos, comprar una docena", false),

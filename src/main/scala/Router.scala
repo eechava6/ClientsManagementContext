@@ -16,10 +16,15 @@ class TodoRouter(todoRepository: TodoRepository) extends Router with Directives 
     pathEndOrSingleSlash{
       get{
         handleWithGeneric(todoRepository.all()) {todos =>
-          complete(todos)
+          handleWithGeneric(todoRepository.save(createTodo)){ todo =>
+            complete(todo)
+          }
         }
       }
-    } ~ path("done"){
+    } ~ post{
+      entity(as[CreateTodo]{ createTodo =>
+      complete(todo)})
+      } ~ path("done"){
       get {
         handleWithGeneric(todoRepository.done()){ todos =>
           complete(todos)
