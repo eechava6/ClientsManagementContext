@@ -9,7 +9,7 @@ object Main extends App {
   val host = "0.0.0.0"
   val port = 9000
 
-  implicit val system: ActorSystem = ActorSystem(name = "todoapi")
+  implicit val system: ActorSystem = ActorSystem(name = "Clientes")
   implicit val materializer: ActorMaterializer = ActorMaterializer()
   import system.dispatcher
 
