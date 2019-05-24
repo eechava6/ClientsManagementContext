@@ -14,16 +14,14 @@ object Main extends App {
   import system.dispatcher
 
   //Start
-  val mongoClient: MongoClient = MongoClient()
-  val database: MongoDatabase = mongoClient.getDatabase("mydb")
-  val collection: MongoCollection[Document] = database.getCollection("test");
+  //val mongoClient: MongoClient = MongoClient()
+  //val database: MongoDatabase = mongoClient.getDatabase("mydb")
+  //val collection: MongoCollection[Document] = database.getCollection("test");
   //End
 
-  val todoRepository = new InMemoryTodoRepository(Seq(
-    Todo("1", "Buy eggs", "Ran out of eggs, buy a dozen", false),
-    Todo("2", "Buy milk", "The cat is thirsty!", true),
-  ))
-  val router = new TodoRouter(todoRepository)
+  val clientRepository = new InMemoryClientRepository(
+  )
+  val router = new ClientRouter(clientRepository)
   val server = new Server(router, host, port)
 
   val binding = server.bind()
