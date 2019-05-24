@@ -25,7 +25,7 @@ class ClientRouter(clientRepository: ClientRepository) extends Router with Direc
           }
         }
       }
-    } ~ path(Segment) { cc: String =>
+    } ~ path("update" / Segment) { cc: String =>
       put {
         entity(as[UpdateClient]) { updateClient =>
           validateWith(UpdateClientValidator)(updateClient) {
@@ -41,5 +41,5 @@ class ClientRouter(clientRepository: ClientRepository) extends Router with Direc
         }
       }
       }
-  }
+    }
 }
