@@ -9,6 +9,8 @@ trait ClientRepository {
   def all(): Future[Seq[Client]]
 
   def save(createClient: CreateClient): Future[Client]
+
+  def update(cc: String, updateClient: UpdateClient): Future[Client]
 }
 
 object  ClientRepository {
@@ -32,4 +34,21 @@ class InMemoryClientRepository(initialClients: Seq[Client] = Seq.empty)(implicit
     client
   }
 
+  override def update(cc: String, updateClient: UpdateClient): Future[Client] = {
+    clients.find(_.cc == cc) match {
+      case Some(foundClient) =>
+        val newClient = updateHelper(foundClient, updateClient)
+        clients =  clients.map(t => if (t.cc == cc) newClient else t)
+        Future.successful(newClient)
+      case None =>
+        Future.failed(ClientNotFound(cc))
+    }
+  }
+
+  private def updateHelper(client: Client, updateClient: UpdateClient): Client = {
+    val t1 = updateClient.name.map(name => client.copy(name = name)).getOrElse(client)
+    updateClient.cc.map(cc => t1.copy(cc = cc)).getOrElse(t1)
+
+  }
 }
+

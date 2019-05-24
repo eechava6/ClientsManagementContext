@@ -25,6 +25,21 @@ class ClientRouter(clientRepository: ClientRepository) extends Router with Direc
           }
         }
       }
-    } 
+    } ~ path(Segment) { cc: String =>
+      put {
+        entity(as[UpdateClient]) { updateClient =>
+          validateWith(UpdateClientValidator)(updateClient) {
+            handle(clientRepository.update(cc, updateClient)) {
+              case ClientRepository.ClientNotFound(_) =>
+                ApiError.clientNotFound(cc)
+              case _ =>
+                ApiError.generic
+            } { client =>
+              complete(client)
+            }
+          }
+        }
+      }
+      }
   }
 }

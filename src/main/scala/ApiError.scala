@@ -9,4 +9,8 @@ object ApiError {
 
   val emptyNameField: ApiError = new ApiError(StatusCodes.BadRequest, "The name field must not be empty.")
 
+  val emptyCcField: ApiError = new ApiError(StatusCodes.BadRequest, "The cc field must not be empty.")
+
+  def clientNotFound(cc: String): ApiError =
+    new ApiError(StatusCodes.NotFound, "The client with cc $cc could not be found.")
 }

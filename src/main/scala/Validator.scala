@@ -10,3 +10,10 @@ object CreateClientValidator extends Validator[CreateClient] {
       None
 }
 
+object UpdateClientValidator extends Validator[UpdateClient] {
+  def validate(updateClient: UpdateClient): Option[ApiError] =
+    if (updateClient.cc.isEmpty)
+      Some(ApiError.emptyCcField)
+    else
+      None
+}
