@@ -40,6 +40,19 @@ class ClientRouter(clientRepository: ClientRepository) extends Router with Direc
           }
         }
       }
+      }~ path("delete" / Segment) { cc: String =>
+      post {
+
+        handle(clientRepository.delete(cc)) {
+              case ClientRepository.ClientNotFound(_) =>
+                ApiError.clientNotFound(cc)
+              case _ =>
+                ApiError.generic
+            } { client =>
+              complete(client)
+            }
+        
+      }
       }
     }
 }

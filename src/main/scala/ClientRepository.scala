@@ -11,6 +11,8 @@ trait ClientRepository {
   def save(createClient: CreateClient): Future[Client]
 
   def update(cc: String, updateClient: UpdateClient): Future[Client]
+
+  def delete(cc: String): Future[Client]
 }
 
 object  ClientRepository {
@@ -49,6 +51,17 @@ class InMemoryClientRepository(initialClients: Seq[Client] = Seq.empty)(implicit
     val t1 = updateClient.name.map(name => client.copy(name = name)).getOrElse(client)
     updateClient.cc.map(cc => t1.copy(cc = cc)).getOrElse(t1)
 
+  }
+
+    override def delete(cc: String): Future[Client] = {
+    clients.find(_.cc == cc) match {
+      case Some(foundClient) =>
+
+        clients = clients.filterNot(_ == foundClient)
+        Future.successful(foundClient)
+      case None =>
+        Future.failed(ClientNotFound(cc))
+    }
   }
 }
 
