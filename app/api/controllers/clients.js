@@ -36,5 +36,28 @@ delete: function(req, res, next) {
      }else
      return res.json({status:"success"})
   });
- }
+ },
+
+
+ //Returns the clients found   
+ findOne: function(req, res, next) {
+   clientModel.find({cc: req.body.cc },function (err, result) {
+   if (err){ 
+      console.log("Error getting data : "+err)
+      return res.json({status:"failed"})
+      }else
+      return res.json({result})
+   });
+},
+
+ //Returns the clients found   
+ findAll: function(req, res, next) {
+   clientModel.find(function (err, result) {
+   if (err){ 
+      console.log("Error getting data : "+err)
+      return res.json({status:"failed"})
+      }else
+      return res.json({result})
+   });
+  }
 } 

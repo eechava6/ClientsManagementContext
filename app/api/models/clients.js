@@ -15,8 +15,5 @@ const ClientSchema = new Schema({
  }
 }, { collection : 'clients' });
 
-ClientSchema.pre('save', function(next){
-    console.log("pre")
-    next();
-});
+
 module.exports = mongoose.model('Client', ClientSchema);
