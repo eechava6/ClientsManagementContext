@@ -1,0 +1,95 @@
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/userpage.css" />
+<script type="text/javascript" src="../js/userpage.js"></script>
+<script src='https://api.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.css' rel='stylesheet' />
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAbI76O1IH31LG-SqZBJ1NYSpUx2dv0tI&callback=initMap">
+    </script>
+
+<!------ Include the above in your HEAD tag ---------->
+<div id="fullscreen_bg" class="fullscreen_bg"/>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-5 col-md-12 col-sm-8 col-xs-9 bhoechie-tab-container">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 bhoechie-tab-menu">
+              <ul class="list-group">
+                <a href="#" class="list-group-item active">
+                  <br/><br/><i class="glyphicon glyphicon-home"></i> Home<br/><br/>
+                  </a>
+                <a href="#" class="list-group-item ">
+                  <br/><br/><i class="glyphicon glyphicon-tasks"></i> Tracking GPS<br/><br/>
+                </a>  
+                <a href="#" class="list-group-item ">
+                  <br/><br/><i class="glyphicon glyphicon-transfer"></i> Tracking History<br/><br/>
+                </a>
+                <a href="#" class="list-group-item">
+                  <br/><br/><h4 class="glyphicon glyphicon-wrench"></h4> About<br/><br/>
+                </a>
+                <a href="#" class="list-group-item">
+                  <br/><br/><h4 class="glyphicon glyphicon-log-out"></h4> Log Out<br/><br/>
+                </a>
+                
+              </ul>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 bhoechie-tab">
+                <!-- flight section -->
+                <div class="bhoechie-tab-content active">
+                    <center>
+                      <h1 class="glyphicon glyphicon-user" style="font-size:14em;color:#001a14"></h1>
+                      <h2 style="margin-top: 0;color:#001a14">Welcome</h2>
+                      <h3 style="margin-top: 0;color:#001a14">User HomePage</h3>
+                      
+                    </center>
+                </div>
+              
+              
+                <div class="bhoechie-tab-content">
+                  <div id='map'></div>
+                  <div class="wrapper">        
+                    <input type="text" class="form-control" id="track" placeholder="Track Name" required="required">
+                    <button class="btn btn-primary btn-block btn-lg" id="tracking">Start Tracking</button>
+                    <p style="text-align: center">Tracking request sent : </p><p id="count" style="text-align: center";> 0 </p>
+                </div>
+                </div>
+    
+               
+                <div class="bhoechie-tab-content">
+                    <center>
+                      <h3 style="margin-top: 0;color:#001a14">My Trips </h3>
+                      <ul class="trips">
+                          <p id="tripsData"> </p>
+                      </ul>
+                    </center>
+                    <input type="text" class="form-control" id="trackname" placeholder="Track Name to Map" required="required">
+                    <button class="btn btn-primary btn-no-block btn-lg" id="tomap">Show in map</button>
+                    <button class="btn btn-primary btn-no-block btn-lg" id="clearHistory">Delete History</button>
+                    <p id="failed" style="color:#bd1a1a ;display: none;text-align: center";>Track name not found</p>
+                    <p id="found" style="color:#00b64c ;display: none;text-align: center";>Track found - Go to map</p>
+                </div>
+                
+                <div class="bhoechie-tab-content">
+                    
+                    <center>
+                      <h1 class="glyphicon glyphicon-edit" style="font-size:12em;color:#001a14"></h1>
+                     <h3 style="margin-top: 0;color:#001a14">Made by : Esteban Echavarria</h3>
+                     <h3 style="margin-top: 0;color:#001a14">License : MIT </h3>
+                     <h3 style="margin-top: 0;color:#001a14">eechava6@eafit.edu.co</h3>
+                    </center>
+
+                    <div class="bhoechie-tab-content">
+                      <center>
+                        <h3 style="margin-top: 0;color:#001a14">My Trips </h3>
+                        <ul class="trips">
+                            <p id="tripsData"> </p>
+                        </ul>
+                      </center>
+                  </div>
+                </div>
+            </div>
+        </div>
+  </div>
+</div>

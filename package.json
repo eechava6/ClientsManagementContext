@@ -1,0 +1,39 @@
+{
+  "name": "gps",
+  "version": "1.0.0",
+  "description": "Aplicación de registro de posición (tracking-gps) en tiempo real (tipo IoT) utilizando *NodeJs* y las mejores prácticas DevOps para integración y entrega continua.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=dev node server.js",
+    "prod": "cross-env NODE_ENV=prod node server.js",
+    "test": "cross-env NODE_ENV=test node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eechava6/Pr1TopicosTelematica.git"
+  },
+  "keywords": [],
+  "author": "Esteban Echavarria",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eechava6/Pr1TopicosTelematica/issues"
+  },
+  "homepage": "https://github.com/eechava6/Pr1TopicosTelematica#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "fs": "0.0.1-security",
+    "mongoose": "^5.4.6",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "path": "^0.12.7",
+    "request": "^2.88.0",
+    "session-file-store": "^1.2.0",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "cross-env": "^5.2.0"
+  }
+}
