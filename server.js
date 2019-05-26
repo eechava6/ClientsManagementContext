@@ -1,6 +1,6 @@
 //Imports
 const express = require('express');
-
+const bodyParser = require('body-parser')
 //App imports
 const clients = require('./routes/clients');
 
@@ -19,6 +19,9 @@ db.on('error', function () {
   throw new Error('unable to connect to database at ' + config.db);
 });
 
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 //Redirect all '/' request  to authentication.
 app.get('/', function(req, res){  

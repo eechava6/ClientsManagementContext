@@ -13,6 +13,10 @@ const ClientSchema = new Schema({
   trim: true,
   required: true
  }
-}, { collection : 'users' });
+}, { collection : 'clients' });
 
+ClientSchema.pre('save', function(next){
+    console.log("pre")
+    next();
+});
 module.exports = mongoose.model('Client', ClientSchema);

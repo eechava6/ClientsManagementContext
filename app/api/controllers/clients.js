@@ -7,7 +7,7 @@ module.exports = {
  create: function(req, res, next) {
       clientModel.create({ name: req.body.name, cc: req.body.cc }, function (err, result) {
       if (err){ 
-         console.log("Error creating user : "+err)
+         console.log("Error creating client : "+err)
          return res.json({status:"failed"})
          }else
          console.log(result)
@@ -17,7 +17,7 @@ module.exports = {
 
  //Updates a client CC and name via its cc
  update: function(req, res, next) {
-   newValues= { cc:req.body.cc, name:req.body.name}
+   newValues= {cc:req.body.cc, name:req.body.name}
   clientModel.updateOne({cc: req.body.cc },newValues, function (err, result) {
   if (err){ 
      console.log("Error updating user : "+err)
