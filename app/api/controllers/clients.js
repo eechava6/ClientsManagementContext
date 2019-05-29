@@ -1,7 +1,13 @@
 //Imports User Model
 const clientModel = require('../models/clients');
+const comm = require('../communication/producer');
+
+
+
+
 
 module.exports = {
+
 
 //Creates a new client with name and cc
  create: function(req, res, next) {
@@ -10,9 +16,24 @@ module.exports = {
          console.log("Error creating client : "+err)
          return res.json({status:"failed"})
          }else
-         console.log(result)
+         payloads = [
+            {
+              topic: comm.config.kafka_topic,
+              messages: "clientCreated " + req.body.cc
+            }
+          ];
+          console.log("Something")
+         comm.producer.send(payloads, (err, data) => {
+            if (err) {
+              console.log('error sending to Kafka in Create Client');
+            } else {
+              console.log('clientCreated event sended');
+            }
+          });
+          console.log("Something after")
          return res.json({status:"success"})
       });
+
  },
 
  //Updates a client CC and name via its cc
