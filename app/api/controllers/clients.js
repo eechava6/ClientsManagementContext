@@ -29,7 +29,7 @@ module.exports = {
      console.log("Error updating user : "+err)
      return res.json({status:"failed"})
      }else
-     data = {cc: req.body.cc, type:"userCreated"}
+     data = {cc: req.body.cc, type:"userUpdated"}
      KafkaService.sendRecord(data)
      return res.json({status:"success"})
   });
@@ -42,7 +42,7 @@ delete: function(req, res, next) {
      console.log("Error deleting user : "+err)
      return res.json({status:"failed"})
      }else
-     data = {cc: req.body.cc, type:"userCreated"}
+     data = {cc: req.body.cc, type:"userDeleted"}
      KafkaService.sendRecord(data)
      return res.json({status:"success"})
   });
@@ -56,7 +56,7 @@ delete: function(req, res, next) {
       console.log("Error getting data : "+err)
       return res.json({status:"failed"})
       }else
-      data = {cc: req.body.cc, type:"userCreated"}
+      data = {cc: req.body.cc, type:"userSearched"}
       KafkaService.sendRecord(data)
       return res.json({result})
    });
@@ -69,7 +69,7 @@ delete: function(req, res, next) {
       console.log("Error getting data : "+err)
       return res.json({status:"failed"})
       }else
-      data = {cc: req.body.cc, type:"userCreated"}
+      data = {cc: "0", type:"searchAllUsers"}
       KafkaService.sendRecord(data)
       return res.json({result})
    });
