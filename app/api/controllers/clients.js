@@ -1,24 +1,9 @@
 //Imports User Model
 const clientModel = require('../models/clients');
-const comm = require('../communication/producer');
+const KafkaService = require('../communication/producer');
 
 
-function generateEvent(event){
-  payload = [
-    {
-      topic: comm.config.kafka_topic,
-      messages: event
-    }
-  ];
 
-  comm.producer.send(payload, (err, data) => {
-    if (err) {
-      console.log('error sending to Kafka');
-    } else {
-      console.log(event);
-    }
-  });
-}
 
 
 module.exports = {
@@ -29,7 +14,8 @@ module.exports = {
          console.log("Error creating client : "+err)
          return res.json({status:"failed"})
          }else
-         generateEvent("clientCreated " + req.body.cc)
+         data = {cc: req.body.cc, type:"userCreated"}
+         KafkaService.sendRecord(data)
          return res.json({status:"success"})
       });
 
@@ -43,7 +29,8 @@ module.exports = {
      console.log("Error updating user : "+err)
      return res.json({status:"failed"})
      }else
-     generateEvent("clientUpdated " + req.body.cc)
+     data = {cc: req.body.cc, type:"userCreated"}
+     KafkaService.sendRecord(data)
      return res.json({status:"success"})
   });
 },
@@ -55,7 +42,8 @@ delete: function(req, res, next) {
      console.log("Error deleting user : "+err)
      return res.json({status:"failed"})
      }else
-     generateEvent("clientDeleted " + req.body.cc)
+     data = {cc: req.body.cc, type:"userCreated"}
+     KafkaService.sendRecord(data)
      return res.json({status:"success"})
   });
  },
@@ -68,7 +56,8 @@ delete: function(req, res, next) {
       console.log("Error getting data : "+err)
       return res.json({status:"failed"})
       }else
-      generateEvent("clientSearched " + req.body.cc)
+      data = {cc: req.body.cc, type:"userCreated"}
+      KafkaService.sendRecord(data)
       return res.json({result})
    });
 },
@@ -80,7 +69,8 @@ delete: function(req, res, next) {
       console.log("Error getting data : "+err)
       return res.json({status:"failed"})
       }else
-      generateEvent("listAllClients")
+      data = {cc: req.body.cc, type:"userCreated"}
+      KafkaService.sendRecord(data)
       return res.json({result})
    });
   }

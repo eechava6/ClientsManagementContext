@@ -7,16 +7,40 @@ const client = new kafka.KafkaClient(config.kafka_server);
 const producer = new Producer(client);
 
 producer.on('ready', async function() {
-    console.log("Kafka broker ready")
+    console.log("Kafka producer ready")
 });
 
 producer.on('error', function(err) {
     console.log(err);
-    console.log('[kafka-producer -> '+kafka_topic+']: connection errored');
     throw err;
 });
+
+const KafkaService = {
+    sendRecord: ({cc, type }, callback = () => {}) => { 
+        const event = {
+            //id: uuid.v4(),
+            timestamp: Date.now(),
+            cc: cc,
+            type: type
+        };
+        const buffer = new Buffer.from(JSON.stringify(event));
+ 
+        // Create a new payload
+        const record = [
+            {
+                topic: config.kafka_topic,
+                messages: buffer,
+                attributes: 1 /* Use GZip compression for the payload */
+            }
+        ];
+ 
+        //Send record to Kafka and log result/error
+        producer.send(record, callback);
+    }
+};
+ 
+
+module.exports = KafkaService
+
+
   
-
-
-  module.exports.producer = producer
-  module.exports.config = config
