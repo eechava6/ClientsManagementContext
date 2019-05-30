@@ -3,12 +3,25 @@ const clientModel = require('../models/clients');
 const comm = require('../communication/producer');
 
 
+function generateEvent(event){
+  payload = [
+    {
+      topic: comm.config.kafka_topic,
+      messages: event
+    }
+  ];
 
+  comm.producer.send(payload, (err, data) => {
+    if (err) {
+      console.log('error sending to Kafka');
+    } else {
+      console.log(event);
+    }
+  });
+}
 
 
 module.exports = {
-
-
 //Creates a new client with name and cc
  create: function(req, res, next) {
       clientModel.create({ name: req.body.name, cc: req.body.cc }, function (err, result) {
@@ -16,21 +29,7 @@ module.exports = {
          console.log("Error creating client : "+err)
          return res.json({status:"failed"})
          }else
-         payloads = [
-            {
-              topic: comm.config.kafka_topic,
-              messages: "clientCreated " + req.body.cc
-            }
-          ];
-          console.log("Something")
-         comm.producer.send(payloads, (err, data) => {
-            if (err) {
-              console.log('error sending to Kafka in Create Client');
-            } else {
-              console.log('clientCreated event sended');
-            }
-          });
-          console.log("Something after")
+         generateEvent("clientCreated " + req.body.cc)
          return res.json({status:"success"})
       });
 
@@ -44,6 +43,7 @@ module.exports = {
      console.log("Error updating user : "+err)
      return res.json({status:"failed"})
      }else
+     generateEvent("clientUpdated " + req.body.cc)
      return res.json({status:"success"})
   });
 },
@@ -55,6 +55,7 @@ delete: function(req, res, next) {
      console.log("Error deleting user : "+err)
      return res.json({status:"failed"})
      }else
+     generateEvent("clientDeleted " + req.body.cc)
      return res.json({status:"success"})
   });
  },
@@ -67,6 +68,7 @@ delete: function(req, res, next) {
       console.log("Error getting data : "+err)
       return res.json({status:"failed"})
       }else
+      generateEvent("clientSearched " + req.body.cc)
       return res.json({result})
    });
 },
@@ -78,6 +80,7 @@ delete: function(req, res, next) {
       console.log("Error getting data : "+err)
       return res.json({status:"failed"})
       }else
+      generateEvent("listAllClients")
       return res.json({result})
    });
   }
