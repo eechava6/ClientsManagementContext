@@ -8,6 +8,6 @@ router.post('/updateClient', clientController.update);
 router.post('/deleteClient', clientController.delete);
 router.post('/getClient', clientController.findOne);
 router.get('/', clientController.findAll);
-
+router.get('/registerClient',clientController.loadRegister)
 
 module.exports = router;
