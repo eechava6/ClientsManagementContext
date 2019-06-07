@@ -6,13 +6,14 @@ $(function(){
 })
 
 $(document).ready(function() {
+	const Toast = Swal.mixin({
+		toast: true,
+		position: 'top-end',
+		showConfirmButton: false,
+		timer: 3000
+	  });
 	$("#register").click(function(e){
-		const Toast = Swal.mixin({
-			toast: true,
-			position: 'top-end',
-			showConfirmButton: false,
-			timer: 3000
-		  });
+	
 		e.preventDefault();
 		//When users click in register button send a post request with data
 		//entered if data sent is ok, redirects to authentication and creates
