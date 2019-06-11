@@ -2,12 +2,8 @@
 const express = require('express');
 const bodyParser = require('body-parser')
 
-
-
-
 //App imports
 const clients = require('./routes/clients');
-var es = require('./config/eventstore');
 const config = require('./config/database'); //database configuration
 const mongoose = require('mongoose');
 
@@ -28,21 +24,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 
-es.init(function (err) {
 
-  es.getEventStream('0', function(err, stream) {
-    stream.addEvent({ my: 'event' });
-    stream.addEvents([{ my: 'event2' }]);
-  
-    stream.commit();
-  
-    // or
-  
-    stream.commit(function(err, stream) {
-      console.log(stream.eventsToDispatch); // this is an array containing all added events in this commit.
-    });
-  });
-});
 
 //Redirect all '/' request  to authentication.
 app.get('/', function(req, res){  

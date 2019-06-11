@@ -9,5 +9,22 @@ var es = require('eventstore')({
     timeout: 10000                              // optional
   });
 
+
+  es.init(function (err) {
+    console.log("Event Store ready")
+  });
+
+const eventStore = {
+    addEvent:() => {
+        es.getEventStream('clients', function(err, stream) {
+            stream.addEvent(data);
+            stream.commit(err,stream => {
+              console.log(stream.eventsToDispatch); // this is an array containing all added events in this commit.
+            });
+          });
+    }
+}
   
-module.exports = es;
+
+  
+module.exports = eventStore;
