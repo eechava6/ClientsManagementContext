@@ -33,7 +33,6 @@ domain.eventStore.init( err =>{
     console.log("EventStore ready")
 })
 
-  
   module.exports.domain = domain
   module.exports.aggregate = aggregate
   module.exports.context = context

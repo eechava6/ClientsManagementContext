@@ -202,4 +202,4 @@ domain.defineEvent({
   });
 
 
-module.export = domain;
+module.exports = domain;
