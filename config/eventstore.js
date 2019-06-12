@@ -24,7 +24,7 @@ var domain = require('cqrs-domain')({
   // optional, default is in-memory
   // currently supports: mongodb, redis, tingodb, azuretable and inmemory
   // hint: [eventstore](https://github.com/adrai/node-eventstore#provide-implementation-for-storage)
-  {
+  eventStore:{
       type: 'mongodb',
       host: 'localhost',                          // optional
       port: 27017,                                // optional
@@ -35,7 +35,7 @@ var domain = require('cqrs-domain')({
       timeout: 10000                              // optional
     },
 
-  // optional, default is in-memory
+  /*// optional, default is in-memory
   // currently supports: mongodb, redis, tingodb, couchdb, azuretable, dynamodb and inmemory
   // hint settings like: [eventstore](https://github.com/adrai/node-eventstore#provide-implementation-for-storage)
   aggregateLock: {
@@ -46,9 +46,9 @@ var domain = require('cqrs-domain')({
     prefix: 'domain_aggregate_lock',            // optional
     timeout: 10000                              // optional
     // password: 'secret'                          // optional
-  },
+  },*/
 
-  // optional, default is not set
+  /*// optional, default is not set
   // checks if command was already seen in the last time -> ttl
   // currently supports: mongodb, redis, tingodb and inmemory
   // hint settings like: [eventstore](https://github.com/adrai/node-eventstore#provide-implementation-for-storage)
@@ -61,7 +61,7 @@ var domain = require('cqrs-domain')({
 		prefix: 'domain_aggregate_lock',            // optional
 		timeout: 10000                              // optional
 		// password: 'secret'                          // optional
-  },
+  },*/
 
   // optional, default false
   // resolves valid file types from loader extensions instead of default values while parsing definition files
@@ -188,7 +188,7 @@ domain.aggregateIdGenerator(function (callback) {
 /////////////// ******************** CONTEXTOS ******************** ////////////////
 /////////////// ***************************************************** //////////////
 
-domain.defineContext({
+require('cqrs-domain').defineContext({
   name: 'contextoGestionDeClientes'
 })
 
@@ -196,7 +196,7 @@ domain.defineContext({
 /////////////// ******************** AGREGADOS ******************** ////////////////
 /////////////// ***************************************************** //////////////
 
-domain.defineAggregate({
+require('cqrs-domain').defineAggregate({
   // optional, default is last part of path name
   name: 'cliente',
 
@@ -383,7 +383,7 @@ domain.defineEvent({
   },
   function(data, aggregate){
   ///////////////// NO ESTOY SEGURO SI ES ASÍ ////////////////////
-    aggregate.delete(cc: data.cc);
+    aggregate.delete({cc: data.cc});
   });
 
 domain.init();
