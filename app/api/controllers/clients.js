@@ -16,7 +16,7 @@ module.exports = {
          }else
          data = {cc: req.body.cc, type:"userCreated"}
          KafkaService.sendRecord(data)
-         es.addEvent(data)
+         es.eventStore.addEvent(data)
          return res.json({status:"success"})
       });
 
