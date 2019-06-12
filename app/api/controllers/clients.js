@@ -1,7 +1,7 @@
 //Imports User Model
 const clientModel = require('../models/clients');
 const KafkaService = require('../communication/producer');
-const es = require('../../../config/eventstore')
+const domain = require('../../../config/eventstore')
 
 //Fs reads a file to later write it to user
 const fs = require('fs');
@@ -16,7 +16,15 @@ module.exports = {
          }else
          data = {cc: req.body.cc, type:"userCreated"}
          KafkaService.sendRecord(data)
-         es.eventStore.addEvent(data)
+         domain.handle({
+            name: 'crearCliente',
+            aggregate: {
+              name: 'cliente'
+            },
+            payload: {
+               data
+            }
+          });
          return res.json({status:"success"})
       });
 
