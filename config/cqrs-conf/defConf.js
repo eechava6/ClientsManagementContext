@@ -7,10 +7,6 @@ module.exports = {
         eventsCollectionName: 'events',             // optional
         snapshotsCollectionName: 'snapshots',       // optional 
         transactionsCollectionName: 'transactions', // optional
-        timeout: 10000                              // optional
-      // authSource: 'authedicationDatabase',        // optional
-        // username: 'technicalDbUser',                // optional
-        // password: 'secret'                          // optional
     },
     eventDefinition : {
         correlationId: 'commandId',

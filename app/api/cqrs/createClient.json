@@ -23,11 +23,11 @@
         "name": {
           "type": "string"
         },
-        "parent": {
+        "cc": {
           "type": "string"
         }
       },
-      "required": ["name", "parent"]
+      "required": ["name", "cc"]
     }
   },
   "required": ["id", "command", "payload"]

@@ -1,7 +1,5 @@
 //Imports User Model
 const clientModel = require('../models/clients');
-const KafkaService = require('../communication/producer');
-const domain = require('../../../config/eventstore')
 
 //Fs reads a file to later write it to user
 const fs = require('fs');
@@ -15,16 +13,6 @@ module.exports = {
          return res.json({status:"failed"})
          }else
          data = {cc: req.body.cc, type:"userCreated"}
-         KafkaService.sendRecord(data)
-         domain.handle({
-            name: 'crearCliente',
-            aggregate: {
-              name: 'cliente'
-            },
-            payload: {
-               data
-            }
-          });
          return res.json({status:"success"})
       });
 
@@ -39,7 +27,7 @@ module.exports = {
      return res.json({status:"failed"})
      }else
      data = {cc: req.body.cc, type:"userUpdated"}
-     KafkaService.sendRecord(data)
+     
      return res.json({status:"success"})
   });
 },
@@ -52,7 +40,7 @@ delete: async(req, res, next) => {
      return res.json({status:"failed"})
      }else
      data = {cc: req.body.cc, type:"userDeleted"}
-     KafkaService.sendRecord(data)
+     
      return res.json({status:"success"})
   });
  },
@@ -66,7 +54,7 @@ delete: async(req, res, next) => {
       return res.json({status:"failed"})
       }else
       data = {cc: req.body.cc, type:"userSearched"}
-      KafkaService.sendRecord(data)
+      
       return res.json({result})
    });
 },
@@ -79,7 +67,6 @@ delete: async(req, res, next) => {
       return res.json({status:"failed"})
       }else
       data = {cc: "0", type:"searchAllUsers"}
-      KafkaService.sendRecord(data)
       return res.json({result})
    });
   },

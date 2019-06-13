@@ -1,4 +1,4 @@
-const commonConfig = require('./common-config');
+const commonConfig = require('./defConf');
 
 module.exports = {
     repository: {
@@ -7,8 +7,5 @@ module.exports = {
         port: 27017,                                // optional
         dbName: 'readmodel',                        // optional
         timeout: 10000                              // optional
-      // authSource: 'authedicationDatabase',        // optional
-        // username: 'technicalDbUser',                // optional
-        // password: 'secret'                          // optional
     }
 }
