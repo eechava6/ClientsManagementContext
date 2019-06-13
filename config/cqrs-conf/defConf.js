@@ -3,7 +3,7 @@ module.exports = {
         type: 'mongodb',
         host: 'localhost',                          // optional
         port: 27017,                                // optional
-        dbName: 'domain',                           // optional
+        dbName: 'domain-clients',                           // optional
         eventsCollectionName: 'events',             // optional
         snapshotsCollectionName: 'snapshots',       // optional 
         transactionsCollectionName: 'transactions', // optional

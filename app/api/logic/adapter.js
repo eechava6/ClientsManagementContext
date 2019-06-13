@@ -23,8 +23,14 @@ function commandHandler(data,command){
 
 
 module.exports = {
+/*
+
+*********COMANDS*********
+
+*/
 //Creates a new client with name and cc
  create: async(req, res, next) => {
+     console.log("Create")
      data = {name: req.body.name, cc: req.body.cc }
      commandHandler(data,'createClient')
      return res.json({status:"success"})
@@ -32,58 +38,38 @@ module.exports = {
 
  //Updates a client CC and name via its cc
  update: async(req, res, next) => {
-   newValues= {cc:req.body.cc, name:req.body.name}
-  clientModel.updateOne({cc: req.body.cc },newValues, function (err, result) {
-  if (err){ 
-     console.log("Error updating user : "+err)
-     return res.json({status:"failed"})
-     }else
-     data = {cc: req.body.cc, type:"userUpdated"}
-     
-     return res.json({status:"success"})
-  });
+   console.log("Update")
+   data = {newName:req.body.name, cc:req.body.cc}
+   commandHandler(data,'updateClient')
+   return res.json({status:"success"})
 },
 
 //Deletes a client via its cc
 delete: async(req, res, next) => {
-  clientModel.deleteOne({cc: req.body.cc }, function (err, result) {
-  if (err){ 
-     console.log("Error deleting user : "+err)
-     return res.json({status:"failed"})
-     }else
-     data = {cc: req.body.cc, type:"userDeleted"}
-     
-     return res.json({status:"success"})
-  });
+   console.log("Delete")
+   data = {cc:req.body.cc}
+   commandHandler(data,'deleteClient')
+   return res.json({status:"success"})
  },
 
+ /*
+
+*********QUERIES*********
+
+*/
 
  //Returns the clients found   
  findOne: async(req, res, next) => {
-   clientModel.find({cc: req.body.cc },function (err, result) {
-   if (err){ 
-      console.log("Error getting data : "+err)
-      return res.json({status:"failed"})
-      }else
-      data = {cc: req.body.cc, type:"userSearched"}
-      
-      return res.json({result})
-   });
+ 
 },
 
  //Returns the clients found   
  findAll: async(req, res, next) => {
-   clientModel.find(function (err, result) {
-   if (err){ 
-      console.log("Error getting data : "+err)
-      return res.json({status:"failed"})
-      }else
-      data = {cc: "0", type:"searchAllUsers"}
-      return res.json({result})
-   });
   },
 
-  //If user logged previously : redirects to UserPage
+
+
+//If user logged previously : redirects to UserPage
 //If user has not log in the system, loads registration page.
 loadRegister: function(req, res, next) {
       fs.readFile('./app/views/index.html',function (err, data){
