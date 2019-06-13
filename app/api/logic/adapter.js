@@ -39,8 +39,8 @@ module.exports = {
  //Updates a client CC and name via its cc
  update: async(req, res, next) => {
    console.log("Update")
-   data = {newName:req.body.name, cc:req.body.cc}
-   commandHandler(data,'updateClient')
+   dataS = {cc:req.body.cc,newName:req.body.newName}
+   commandHandler(dataS,'updateClient')
    return res.json({status:"success"})
 },
 

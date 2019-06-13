@@ -1,5 +1,5 @@
 
-const commonConfig = require('./defConf');
+const commonConfig = require('./eventStore-conf');
 
 module.exports = {
     eventDefinition: commonConfig.eventDefinition,
