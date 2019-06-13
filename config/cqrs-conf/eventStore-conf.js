@@ -12,7 +12,7 @@ module.exports = {
         correlationId: 'commandId',
         id: 'id',
         name: 'event',
-        aggregateId: 'payload.id',
+        aggregateId: 'id',
         aggregate: 'aggregate.name',
         payload: 'payload',
         revision: 'head.revision',
@@ -21,7 +21,7 @@ module.exports = {
     commandDefinition: {
         id: 'id',
         name: 'command',
-        aggregateId: 'payload.id',
+        aggregateId: 'id',
         aggregate: 'aggregate.name',
         payload: 'payload',
         revision: 'head.revision',

@@ -12,7 +12,7 @@ var config = {
       name: 'clientBD'
     },
     port: process.env.PORT || 3000,
-    db: 'mongodb://localhost/clientBD'
+    db: 'mongodb://localhost/readmodel'
   },
 
   test: {
