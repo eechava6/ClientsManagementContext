@@ -90,7 +90,25 @@ domain.aggregateIdGenerator(function (callback) {
 /////////////// ******************** COMANDOS ********************* ////////////////
 /////////////// ***************************************************** //////////////
 
-domain.defineCommand({
+require('cqrs-domain').defineCommand({
+  name: 'actualizarCliente',
+  version: 1,
+  payload: 'payload',
+  existing: true},
+  function (data, aggregate){
+  aggregate.apply('clienteActualizado', data);
+  })
+
+require('cqrs-domain').defineCommand({
+  name: 'eliminarCliente',
+  version: 1,
+  payload: 'payload',
+  existing: true},
+  function (data, aggregate){
+  aggregate.apply('clienteEliminado', data);
+  })
+
+require('cqrs-domain').defineCommand({
  // optional, default is file name without extension
  name: 'crearCliente',
 
@@ -118,7 +136,7 @@ domain.defineCommand({
  //   event: 'enteredNewPerson',
  //   payload: data
  // });
-})
+});
 
 /*// if defined it will load all the requested event streams
 // useful if making bigger redesigns in domain and you need to handle a command on a new aggregate
@@ -134,29 +152,11 @@ domain.defineCommand({
  }];
 });*/
 
-domain.defineCommand({
-  name: 'actualizarCliente',
-  version: 1,
-  payload: 'payload',
-  existing: true},
-  function (data, aggregate){
-  aggregate.apply('clienteActualizado', data);
-  })
-
-domain.defineCommand({
-  name: 'eliminarCliente',
-  version: 1,
-  payload: 'payload',
-  existing: true},
-  function (data, aggregate){
-  aggregate.apply('clienteEliminado', data);
-  })
-
 /////////////// ***************************************************** //////////////
 /////////////// ********************* EVENTOS ********************* ////////////////
 /////////////// ***************************************************** //////////////
 
-domain.defineEvent({
+/*domain.defineEvent({
 // optional, default is file name without extension
 name: 'clienteCreado',
 
@@ -199,7 +199,14 @@ domain.defineEvent({
   function(data, aggregate){
   ///////////////// NO ESTOY SEGURO SI ES ASÍ ////////////////////
     aggregate.delete({cc: data.cc});
-  });
+  });*/
 
+domain.init( warnings => {
+    console.log("Domain ready")
+});
+
+domain.eventStore.init( err =>{
+    console.log("EventStore ready")
+})
 
 module.exports = domain;

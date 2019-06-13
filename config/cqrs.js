@@ -1,5 +1,5 @@
 const domain = require('cqrs-domain')({
-    domainPath: './eventstore.js',
+    domainPath: '.',
   
     eventStore: {
         type: 'mongodb',
@@ -24,14 +24,6 @@ const aggregate = require('cqrs-domain').defineAggregate({
     name: 'cliente',
   },
 )
-
-domain.init( warnings => {
-    console.log("Domain ready")
-});
- 
-domain.eventStore.init( err =>{
-    console.log("EventStore ready")
-})
 
   module.exports.domain = domain
   module.exports.aggregate = aggregate

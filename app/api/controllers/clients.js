@@ -13,21 +13,28 @@ module.exports = {
       if (err){ 
          console.log("Error creating client : "+err)
          return res.json({status:"failed"})
-         }else
-         data = {cc: req.body.cc, type:"userCreated"}
-         KafkaService.sendRecord(data)
+         }else{
+         data = {cc: req.body.cc, name: req.body.name, type:"userCreated"}
          domain.handle({
-            name: 'crearCliente',
-            aggregate: {
-              name: 'cliente'
-            },
-            payload: {
-               data
-            }
-          });
-         return res.json({status:"success"})
-      });
+              name: 'crearCliente',
+              aggregate: {
+                name: 'cliente'
+              },
+              context: {
+                name: 'contextoGestionDeClientes'
+              },
+              payload: {
+                cc: data.cc,
+                name: data.name
+              }
+            }, function(err, events, aggregateData, metaInfos){
+              console.log(err.name);
+            });
+         KafkaService.sendRecord(data)
 
+         return res.json({status:"success"})
+         }
+      });
  },
 
  //Updates a client CC and name via its cc
