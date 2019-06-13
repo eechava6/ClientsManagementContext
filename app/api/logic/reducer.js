@@ -1,12 +1,10 @@
 //Imports User Model
 const clientModel = require('../models/clients');
-
 //Fs reads a file to later write it to user
 const fs = require('fs');
-
 module.exports = {
 //Creates a new client with name and cc
- create: async(req, res, next) => {
+ create: async(req) => {
       clientModel.create({ name: req.body.name, cc: req.body.cc }, function (err, result) {
       if (err){ 
          console.log("Error creating client : "+err)
@@ -19,7 +17,7 @@ module.exports = {
  },
 
  //Updates a client CC and name via its cc
- update: async(req, res, next) => {
+ update: async(req) => {
    newValues= {cc:req.body.cc, name:req.body.name}
   clientModel.updateOne({cc: req.body.cc },newValues, function (err, result) {
   if (err){ 
@@ -33,7 +31,7 @@ module.exports = {
 },
 
 //Deletes a client via its cc
-delete: async(req, res, next) => {
+delete: async(req) => {
   clientModel.deleteOne({cc: req.body.cc }, function (err, result) {
   if (err){ 
      console.log("Error deleting user : "+err)
@@ -47,7 +45,7 @@ delete: async(req, res, next) => {
 
 
  //Returns the clients found   
- findOne: async(req, res, next) => {
+ findOne: async(req) => {
    clientModel.find({cc: req.body.cc },function (err, result) {
    if (err){ 
       console.log("Error getting data : "+err)
@@ -60,7 +58,7 @@ delete: async(req, res, next) => {
 },
 
  //Returns the clients found   
- findAll: async(req, res, next) => {
+ findAll: async(req) => {
    clientModel.find(function (err, result) {
    if (err){ 
       console.log("Error getting data : "+err)
@@ -73,7 +71,7 @@ delete: async(req, res, next) => {
 
   //If user logged previously : redirects to UserPage
 //If user has not log in the system, loads registration page.
-loadRegister: function(req, res, next) {
+loadRegister: function(req) {
       fs.readFile('./app/views/index.html',function (err, data){
          res.writeHead(200, {'Content-Type': 'text/html','Content-Length':data.length});
          res.write(data);

@@ -6,38 +6,10 @@ const bodyParser = require('body-parser')
 const clients = require('./routes/clients');
 const config = require('./config/database'); //database configuration
 const mongoose = require('mongoose');
-const KafkaService = require('./config/communication/producer');
-var domainConfig = require('./config/cqrs-conf/defs');;
 
 //Creates the instance
 const app = express();
 
-//configurate domain
-  var domain = require('cqrs-domain')({
-      domainPath: __dirname + '/app/api/cqrs/',
-      eventStore: domainConfig.eventStore
-  });
-  
-  domain.defineCommand(domainConfig.commandDefinition);
-  domain.defineEvent(domainConfig.eventDefinition);
-
-  domain.eventStore.on('connect', err =>{
-    if(err){
-      return err
-    }
-    console.log("EventStore ready")
-  }) 
-
-  domain.init(function(err) {
-      if (err) {
-          return err;
-      }
-      console.log("Domain ready")
-      domain.onEvent(function(evt) {
-          KafkaService.sendRecord(evt)
-      });
-
-  });
 
 //Connection to DB
 mongoose.connect(config.db,{ useNewUrlParser: true });
@@ -53,16 +25,12 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-//Redirect all '/' request  to authentication.
-app.get('/', function(req, res){  
-  res.send('Clients CRUD ');
-});
 
 //Statics (Styles and JS)
 app.use(express.static(__dirname + '/public/'));
 
 //Public routes
-app.use('/', clients);
+app.use('/clients', clients);
 
 // Handle errors
 app.use(function(err, req, res, next) {

@@ -1,13 +1,13 @@
 //Defines client routes to post and get request.
 const express = require('express');
 const router = express.Router();
-const clientController = require('../app/api/controllers/clients');
+const clientAdapter = require('../app/api/logic/adapter');
 
-router.post('/registerClient', clientController.create);
-router.post('/updateClient', clientController.update);
-router.post('/deleteClient', clientController.delete);
-router.post('/getClient', clientController.findOne);
-router.get('/', clientController.findAll);
-router.get('/registerClient',clientController.loadRegister)
+router.post('/registerClient', clientAdapter.create);
+router.post('/updateClient', clientAdapter.update);
+router.post('/deleteClient', clientAdapter.delete);
+router.post('/getClient', clientAdapter.findOne);
+router.get('/', clientAdapter.findAll);
+router.get('/registerClient',clientAdapter.loadRegister)
 
 module.exports = router;

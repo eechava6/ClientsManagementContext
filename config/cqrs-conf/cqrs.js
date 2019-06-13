@@ -1,28 +1,32 @@
+const KafkaService = require('../communication/producer');
 var domainConfig = require('./defs');;
+var path = require("path");
 
 //configurate domain
-  var domain = require('cqrs-domain')({
-      domainPath: '/app/api/cqrs/',
-      eventStore: {
-          type: 'mongodb',
-          host: 'localhost',                          // optional
-          port: 27017,                                // optional
-          dbName: 'domain-clients',                      // optional
-          eventsCollectionName: 'events',             // optional
-          snapshotsCollectionName: 'snapshots',       // optional 
-          transactionsCollectionName: 'transactions', // optional
-          timeout: 10000                              // optional
-      },
-  });
-  
-  domain.defineCommand(domainConfig.commandDefinition);
-  domain.defineEvent(domainConfig.eventDefinition);
+var domain = require('cqrs-domain')({
+  domainPath: path.resolve('.') + '/app/api/cqrs/',
+  eventStore: domainConfig.eventStore
+});
 
-  domain.eventStore.on('connect', err =>{
-    if(err){
-      console.log(err)
-    }
-    console.log("EventStore ready")
-  }) 
+domain.defineCommand(domainConfig.commandDefinition);
+domain.defineEvent(domainConfig.eventDefinition);
+
+domain.eventStore.on('connect', err =>{
+if(err){
+  return err
+}
+console.log("EventStore ready")
+}) 
+
+domain.init(function(err) {
+  if (err) {
+      return err;
+  }
+  console.log("Domain ready")
+  domain.onEvent(function(evt) {
+      KafkaService.sendRecord(evt)
+  });
+
+});
 
 module.exports = domain
