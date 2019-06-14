@@ -75,7 +75,23 @@ delete: async(req, res, next) => {
 //If user logged previously : redirects to UserPage
 //If user has not log in the system, loads registration page.
 loadRegister: function(req, res, next) {
-      fs.readFile('./app/views/index.html',function (err, data){
+      fs.readFile('./app/views/create.html',function (err, data){
+         res.writeHead(200, {'Content-Type': 'text/html','Content-Length':data.length});
+         res.write(data);
+         res.end();
+       })
+    },
+
+    loadDelete: function(req, res, next) {
+      fs.readFile('./app/views/delete.html',function (err, data){
+         res.writeHead(200, {'Content-Type': 'text/html','Content-Length':data.length});
+         res.write(data);
+         res.end();
+       })
+    },
+
+    loadUpdate: function(req, res, next) {
+      fs.readFile('./app/views/update.html',function (err, data){
          res.writeHead(200, {'Content-Type': 'text/html','Content-Length':data.length});
          res.write(data);
          res.end();
