@@ -66,10 +66,20 @@ delete: async(req, res, next) => {
 
  //Returns the clients found   
  findOne: async(req, res, next) => {
+   clientModel.find({cc:req.body.cc}, (err,result) => 
+   { 
+      console.log("findOne")
+      return res.json(result)
+   }) 
 },
 
  //Returns the clients found   
  findAll: async(req, res, next) => {
+   clientModel.find((err,result) => 
+   { 
+      console.log("findAll")
+      return res.json(result)
+   }) 
   },
 
 //If user logged previously : redirects to UserPage
