@@ -1,6 +1,7 @@
 const domain = require('../../../config/cqrs-conf/cqrs').domain;
 const clientModel = require('../models/clients');
 const uuid4 = require('uuid4');
+const axios = require('axios')
 //Fs reads a file to later write it to user
 const fs = require('fs');
 
@@ -57,6 +58,17 @@ delete: async(req, res, next) => {
       return res.json({status:"success"})
    }) 
  },
+
+ getClientProducts: async(req, res, next) => {
+   axios.post('http://10.25.244.135:4000/clients/findByClient', {
+   cc: req.body.cc
+   })
+.then((res) => {
+   console.log(res)
+   return res.json(res)
+})
+ },
+
 
  /*
 

@@ -70,4 +70,3 @@ var eventDenormalizerOptions = {
 
 
 module.exports.domain = domain
-

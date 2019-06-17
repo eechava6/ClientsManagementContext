@@ -16,13 +16,7 @@ producer.on('error', function(err) {
 });
 
 const KafkaService = {
-    sendRecord: ({cc, type }, callback = () => {}) => { 
-        const event = {
-            //id: uuid.v4(),
-            timestamp: Date.now(),
-            cc: cc,
-            type: type
-        };
+    sendRecord: (event, callback = () => {}) => { 
         const buffer = new Buffer.from(JSON.stringify(event));
  
         // Create a new payload
@@ -33,7 +27,6 @@ const KafkaService = {
                 attributes: 1 /* Use GZip compression for the payload */
             }
         ];
- 
         //Send record to Kafka and log result/error
         producer.send(record, callback);
     }
