@@ -4,6 +4,7 @@ const uuid4 = require('uuid4');
 const axios = require('axios')
 //Fs reads a file to later write it to user
 const fs = require('fs');
+const executer = require('./reducer');
 
 
 
@@ -96,13 +97,13 @@ delete: async(req, res, next) => {
 
 //If user logged previously : redirects to UserPage
 //If user has not log in the system, loads registration page.
-loadRegister: function(req, res, next) {
-      fs.readFile('./app/views/create.html',function (err, data){
-         res.writeHead(200, {'Content-Type': 'text/html','Content-Length':data.length});
-         res.write(data);
-         res.end();
-       })
-    },
+  loadRegister: function(req, res, next) {
+    fs.readFile('./app/views/create.html',function (err, data){
+      res.writeHead(200, {'Content-Type': 'text/html','Content-Length':data.length});
+      res.write(data);
+      res.end();
+    })
+  },
 
     loadDelete: function(req, res, next) {
       fs.readFile('./app/views/delete.html',function (err, data){
@@ -118,5 +119,11 @@ loadRegister: function(req, res, next) {
          res.write(data);
          res.end();
        })
-    }
+    },
+
+  rebuild: async(req, res, next) => {
+    result = await executer.rebuild();
+    console.log(result)
+    return res.json(result);
+  }
 } 
