@@ -19,7 +19,7 @@ $(document).ready(function() {
 		//entered if data sent is ok, redirects to authentication and creates
 		//a new user in DB, else show error.
 		$.post("/clients/registerClient", { name: $("#name").val(),
-		 cc: $("#cc").val(),}).done(function(res) {
+		 cc: $("#cc").val(),product:$("#product").val()}).done(function(res) {
 		  if(res.status === "success"){
 		
 			Toast.fire({

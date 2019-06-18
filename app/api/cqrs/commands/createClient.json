@@ -25,6 +25,9 @@
         },
         "cc": {
           "type": "string"
+        },
+        "products":{
+          "type": "array"
         }
       },
       "required": ["name", "cc"]

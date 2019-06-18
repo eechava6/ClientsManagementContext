@@ -23,8 +23,18 @@
 					<h3>Registrar un nuevo cliente</h3>
 					<div class="form-row">
 						<input type="text" class="form-control" id="name" placeholder="Nombre">
-						<input type="text" class="form-control" id="cc" placeholder="Cedula">
+						<input type="text" style="margin-right:20px" class="form-control" id="cc" placeholder="Cedula">	
+						<div class="form-holder">
+							<select name="" id="product" class="form-control">
+								<option value="" disabled selected>Producto asociado</option>
+								<option value="debito">Tarjeta débito</option>
+								<option value="credito">Tarjeta crédito</option>
+								<option value="cheque">Cheque</option>
+							</select>
+							<i class="zmdi zmdi-chevron-down"></i>
+						</div>			
 					</div>
+					
 					<button id="register">Registrar
 						<i class="zmdi zmdi-long-arrow-right"></i>
 					</button>

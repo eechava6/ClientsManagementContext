@@ -20,7 +20,7 @@ if(err){
 }
 console.log("EventStore ready")
 }) 
-const viewmodel = require('viewmodel')
+
 const eventDenormalizerConfig = require('./eventDenormalizer-config')
 
 

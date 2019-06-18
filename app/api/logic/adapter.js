@@ -32,7 +32,7 @@ module.exports = {
 //Creates a new client with name and cc
  create: async(req, res, next) => {
      console.log("Create")
-     data = {name: req.body.name, cc: req.body.cc }
+     data = {name: req.body.name, cc: req.body.cc, products:[req.body.product] }
      commandHandler(data,'createClient')
      return res.json({status:"success"})
  },
