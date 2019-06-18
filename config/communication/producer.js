@@ -22,7 +22,7 @@ const KafkaService = {
         // Create a new payload
         const record = [
             {
-                topic: config.kafka_topic,
+                topic: config.kafka_clients_topic,
                 messages: buffer,
                 attributes: 1 /* Use GZip compression for the payload */
             }
