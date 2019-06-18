@@ -61,6 +61,7 @@ var eventDenormalizerOptions = {
             KafkaConsumer.startConsumer();
             console.log("Domain ready")
             domain.onEvent(function(evt) {
+                //console.log(evt)
                 KafkaProducer.sendRecord(evt)
                 eventDenormalizer.handle(evt)
             });

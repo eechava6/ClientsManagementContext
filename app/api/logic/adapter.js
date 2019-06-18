@@ -123,7 +123,7 @@ delete: async(req, res, next) => {
 
   rebuild: async(req, res, next) => {
     result = await executer.rebuild();
-    console.log(result)
+    //console.log(result)
     return res.json(result);
   }
 } 
