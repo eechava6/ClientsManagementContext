@@ -10,10 +10,8 @@ module.exports = {
       //var query = {};
       dbo.collection("events").find().toArray(function(err, result) {
         if (err) throw err;
-        //console.log(result);
         for(evt of result){
-          console.log(evt.payload)
-          eventDenormalizer.handle(evt)
+          eventDenormalizer.handle(evt.payload);
         }
         db.close();
         return {status:"success"}
