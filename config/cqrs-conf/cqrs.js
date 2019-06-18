@@ -61,10 +61,11 @@ var eventDenormalizerOptions = {
             KafkaConsumer.startConsumer();
             console.log("Domain ready")
             domain.onEvent(function(evt) {
-                KafkaProducer.sendRecord(evt)
-                eventDenormalizer.handle(evt)
+                if(evt.event !== "commandRejected"){
+                    KafkaProducer.sendRecord(evt)
+                    eventDenormalizer.handle(evt)
+                }
             });
-          
           });
 
     });
