@@ -39,15 +39,17 @@ module.exports = {
 
  //Updates a client CC and name via its cc
  update: function(req, res, next) {
-   
+   /*clientModel.find({cc:req.body.cc}, (err,result) =>
+      {
+         console.log(result)
+      })*/
    clientModel.find({cc:req.body.cc}, (err,result) => 
    { 
       console.log("Update")
-      data = {cc:req.body.cc,name:req.body.newName, id:result[0].id}
-      console.log(data)
+      data = {cc:req.body.cc,name:req.body.newName, id:JSON.parse(JSON.stringify(result[0])).id}
       commandHandler(data,'updateClient')
       return res.json({status:"success"})
-   }) 
+   })
 },
 
 //Deletes a client via its cc
@@ -55,7 +57,7 @@ delete: function(req, res, next) {
    clientModel.find({cc:req.body.cc}, (err,result) => 
    { 
       console.log("Delete")
-      data = {cc:req.body.cc, id:result[0].id}
+      data = {cc:req.body.cc, id:JSON.parse(JSON.stringify(result[0])).id}
       commandHandler(data,'deleteClient')
       return res.json({status:"success"})
    }) 
