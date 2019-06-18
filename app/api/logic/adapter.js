@@ -30,7 +30,7 @@ module.exports = {
 
 */
 //Creates a new client with name and cc
- create: async(req, res, next) => {
+ create: function(req, res, next) {
      console.log("Create")
      data = {name: req.body.name, cc: req.body.cc, products:[req.body.product] }
      commandHandler(data,'createClient')
@@ -38,7 +38,7 @@ module.exports = {
  },
 
  //Updates a client CC and name via its cc
- update: async(req, res, next) => {
+ update: function(req, res, next) {
    
    clientModel.find({cc:req.body.cc}, (err,result) => 
    { 
@@ -50,7 +50,7 @@ module.exports = {
 },
 
 //Deletes a client via its cc
-delete: async(req, res, next) => {
+delete: function(req, res, next) {
    clientModel.find({cc:req.body.cc}, (err,result) => 
    { 
       console.log("Delete")
@@ -60,15 +60,6 @@ delete: async(req, res, next) => {
    }) 
  },
 
- getClientProducts: async(req, res, next) => {
-   axios.post('http://10.25.244.135:4000/clients/findByClient', {
-   cc: req.body.cc
-   })
-.then((res) => {
-   console.log(res)
-   return res.json(res)
-})
- },
 
 
  /*
@@ -78,7 +69,7 @@ delete: async(req, res, next) => {
 */
 
  //Returns the clients found   
- findOne: async(req, res, next) => {
+ findOne: function(req, res, next) {
    clientModel.find({cc:req.body.cc}, (err,result) => 
    { 
       console.log("findOne")
@@ -87,7 +78,7 @@ delete: async(req, res, next) => {
 },
 
  //Returns the clients found   
- findAll: async(req, res, next) => {
+ findAll: function(req, res, next) {
    clientModel.find((err,result) => 
    { 
       console.log("findAll")
@@ -121,8 +112,8 @@ delete: async(req, res, next) => {
        })
     },
 
-  rebuild: async(req, res, next) => {
-    result = await executer.rebuild();
+  rebuild: function(req, res, next) {
+    //result = await executer.rebuild();
     //console.log(result)
     return res.json(result);
   }
