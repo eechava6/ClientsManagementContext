@@ -44,6 +44,7 @@ module.exports = {
    { 
       console.log("Update")
       data = {cc:req.body.cc,name:req.body.newName, id:result[0].id}
+      console.log(data)
       commandHandler(data,'updateClient')
       return res.json({status:"success"})
    }) 
@@ -113,8 +114,8 @@ delete: function(req, res, next) {
     },
 
   rebuild: function(req, res, next) {
-    //result = await executer.rebuild();
-    //console.log(result)
+    result = executer.rebuild();
+    console.log(result)
     return res.json(result);
   }
 } 
