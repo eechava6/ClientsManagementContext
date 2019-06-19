@@ -1,10 +1,9 @@
 const domain = require('../../../config/cqrs-conf/cqrs').domain;
 const clientModel = require('../models/clients');
 const uuid4 = require('uuid4');
-const axios = require('axios')
 //Fs reads a file to later write it to user
 const fs = require('fs');
-const executer = require('./reducer');
+
 
 
 
@@ -34,17 +33,32 @@ module.exports = {
      console.log("Create")
      data = {name: req.body.name, cc: req.body.cc, products:[req.body.product] }
      commandHandler(data,'createClient')
+     if(res)
      return res.json({status:"success"})
  },
 
  //Updates a client CC and name via its cc
  update: function(req, res, next) {
-   
    clientModel.find({cc:req.body.cc}, (err,result) => 
    { 
       console.log("Update")
       data = {cc:req.body.cc,name:req.body.newName, id:result[0].id}
       commandHandler(data,'updateClient')
+      if(res)
+      return res.json({status:"success"})
+   }) 
+},
+
+addProduct: function(req, res, next){
+   clientModel.find({cc:req.body.cc}, (err,result) => 
+   { 
+      console.log("AddProducts")
+      client = JSON.parse(JSON.stringify(result[0]))
+      items = client.products
+      items.push(req.body.type)
+      data = {cc:req.body.cc,name:client.name, products:items, id:client.id}
+      commandHandler(data,'updateClient')
+      if(res)
       return res.json({status:"success"})
    }) 
 },
@@ -56,6 +70,7 @@ delete: function(req, res, next) {
       console.log("Delete")
       data = {cc:req.body.cc, id:result[0].id}
       commandHandler(data,'deleteClient')
+      if(res)
       return res.json({status:"success"})
    }) 
  },
