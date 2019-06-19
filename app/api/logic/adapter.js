@@ -3,7 +3,7 @@ const clientModel = require('../models/clients');
 const uuid4 = require('uuid4');
 //Fs reads a file to later write it to user
 const fs = require('fs');
-
+const executer = require('./reducer')
 
 
 
@@ -42,7 +42,7 @@ module.exports = {
    clientModel.find({cc:req.body.cc}, (err,result) => 
    { 
       console.log("Update")
-      data = {cc:req.body.cc,name:req.body.newName, id:result[0].id}
+      data = {cc:req.body.cc,name:req.body.newName, id:JSON.parse(JSON.stringify(result[0])).id}
       commandHandler(data,'updateClient')
       if(res)
       return res.json({status:"success"})
@@ -60,7 +60,7 @@ addProduct: function(req, res, next){
       commandHandler(data,'updateClient')
       if(res)
       return res.json({status:"success"})
-   }) 
+   })
 },
 
 //Deletes a client via its cc
@@ -68,7 +68,7 @@ delete: function(req, res, next) {
    clientModel.find({cc:req.body.cc}, (err,result) => 
    { 
       console.log("Delete")
-      data = {cc:req.body.cc, id:result[0].id}
+      data = {cc:req.body.cc, id:JSON.parse(JSON.stringify(result[0])).id}
       commandHandler(data,'deleteClient')
       if(res)
       return res.json({status:"success"})
@@ -128,8 +128,15 @@ delete: function(req, res, next) {
     },
 
   rebuild: function(req, res, next) {
-    //result = await executer.rebuild();
-    //console.log(result)
+     console.log("entra")
+    result = executer.rebuild();
+    console.log(result)
     return res.json(result);
+  },
+
+  productsOfClient: function(req, res, next) {
+    clientModel.find({cc: req.body.cc}, (err, result) => {
+      return res.json(JSON.parse(JSON.stringify(result[0])).products)
+    })
   }
 } 
