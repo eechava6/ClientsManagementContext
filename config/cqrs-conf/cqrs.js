@@ -40,20 +40,6 @@ var eventDenormalizerOptions = {
         }
         console.log("EventDenormalizer ready")
 
-        // on receiving an __event__ from eventDenormalizer module:
-        //
-        // - forward it to connected browsers via socket.io
-        eventDenormalizer.onEvent(function(evt,err) {
-            //console.log(evt)
-           // io.sockets.emit('events', evt);
-        });
-
-
-        eventDenormalizer.onEventMissing(function (info, evt) {
-            console.log("Missed event")
-            console.log(evt)
-        });
-
         domain.init(function(err) {
             if (err) {
                 return err;

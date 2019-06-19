@@ -5,7 +5,7 @@ module.exports = {
         type: 'mongodb',
         host: 'localhost',                          // optional
         port: 27017,                                // optional
-        dbName: 'readmodel',                        // optional
+        dbName: 'clientsQueries',                        // optional
         timeout: 10000                              // optional
     },
     revisionGuardStore: {

@@ -1,7 +1,6 @@
 const kafka = require('kafka-node');
 const config = require('./config');
 const reducer = require('./reducer')
-//const E = require('../events')
 
 
 const client = new kafka.KafkaClient(config.kafka_server);
