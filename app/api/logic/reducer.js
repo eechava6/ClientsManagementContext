@@ -9,7 +9,6 @@ module.exports = {
       var dbo = db.db("domain-clients");
       dbo.collection("events").find().toArray(function(err, result) {
         if (err) throw err;
-        console.log(result)
         for(evt of result){
           if(evt.payload.event !== "createdClient"){
             var dbo2 = db.db("readmodel")
@@ -23,7 +22,7 @@ module.exports = {
             eventDenormalizer.handle(evt.payload);
           }
         }
-        //db.close();
+        db.close();
         return {status:"success"}
       });
     });

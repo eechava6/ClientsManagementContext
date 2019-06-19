@@ -128,14 +128,13 @@ delete: function(req, res, next) {
     },
 
   rebuild: function(req, res, next) {
-     console.log("entra")
     result = executer.rebuild();
-    console.log(result)
     return res.json(result);
   },
 
   productsOfClient: function(req, res, next) {
     clientModel.find({cc: req.body.cc}, (err, result) => {
+      if(err) throw err;
       return res.json(JSON.parse(JSON.stringify(result[0])).products)
     })
   }
