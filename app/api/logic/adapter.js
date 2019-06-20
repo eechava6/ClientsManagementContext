@@ -39,11 +39,16 @@ module.exports = {
  update: function(req, res, next) {
    clientModel.find({cc:req.body.cc}, (err,result) => 
    { 
-      console.log("Update")
-      data = {cc:req.body.cc,name:req.body.newName, id:JSON.parse(JSON.stringify(result[0])).id}
-      commandHandler(data,'updateClient')
-      if(res)
-      return res.json({status:"success"})
+      if(result.length > 0){
+        console.log("Update")
+        data = {cc:req.body.cc,name:req.body.newName, id:JSON.parse(JSON.stringify(result[0])).id}
+        commandHandler(data,'updateClient')
+        if(res)
+        return res.json({status:"success"})
+      }else{
+        if(res)
+        return res.json({status: "failed"})
+      }
    }) 
 },
 
@@ -59,6 +64,9 @@ addProduct: function(req, res, next){
          commandHandler(data,'updateClient')
          if(res)
          return res.json({status:"success"})
+      }else{
+        if(res)
+        return res.json({status:"failed"})
       }
       
    })
@@ -80,6 +88,9 @@ deleteProduct: function(req, res, next){
          commandHandler(data,'updateClient')
          if(res)
          return res.json({status:"success"})
+      }else{
+        if(res)
+        return res.json({status:"failed"})
       }
       
    })
@@ -87,33 +98,41 @@ deleteProduct: function(req, res, next){
 },
 
 updateProduct: function(req, res, next){
-   clientModel.find({cc:req.body.cc}, (err,result) => 
-   {  
+  clientModel.find({cc:req.body.cc}, (err,result) =>
+  {
+    if(result.length > 0){
       console.log("AddProduct")
-      if(result[0]){
-         client = JSON.parse(JSON.stringify(result[0]))
-         items = client.products
-         var index = items.indexOf(req.body.oldType)
-         items[index]= req.body.type
-         data = {cc:req.body.cc,name:client.name, products:items, id:client.id}
-         commandHandler(data,'updateClient')
-         if(res)
-         return res.json({status:"success"})
-      }
-      
+      client = JSON.parse(JSON.stringify(result[0]))
+      items = client.products
+      var index = items.indexOf(req.body.oldType)
+      items[index]= req.body.type
+      data = {cc:req.body.cc,name:client.name, products:items, id:client.id}
+      commandHandler(data,'updateClient')
+      if(res)
+      return res.json({status:"success"})
+    }else{
+      if(res)
+      return res.json({status:"failed"})
+    }
    })
    
 },
 
 //Deletes a client via its cc
 delete: function(req, res, next) {
-   clientModel.find({cc:req.body.cc}, (err,result) => 
-   { 
+  clientModel.find({cc:req.body.cc}, (err,result) =>
+  {
+    if(result.length > 0){
       console.log("Delete")
       data = {cc:req.body.cc, id:JSON.parse(JSON.stringify(result[0])).id}
       commandHandler(data,'deleteClient')
       if(res)
       return res.json({status:"success"})
+    } else {
+      console.log("Delete failed");
+      if(res)
+      return res.json({status: "failed"})
+    }
    }) 
  },
 
@@ -176,15 +195,18 @@ delete: function(req, res, next) {
     },
 
   rebuild: function(req, res, next) {
-     console.log("entra")
     result = executer.rebuild();
-    console.log(result)
     return res.json(result);
   },
 
   productsOfClient: function(req, res, next) {
     clientModel.find({cc: req.body.cc}, (err, result) => {
-      return res.json(JSON.parse(JSON.stringify(result[0])).products)
+      if (err) throw err;
+      if(result.length > 0){
+        return res.json(JSON.parse(JSON.stringify(result[0])).products)
+      }else{
+        return res.json({})
+      }
     })
   }
 } 
