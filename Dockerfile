@@ -7,7 +7,7 @@ LABEL maintainer="Jorge - Camilo - Esteban"
 ARG PORT=3000
 ENV PORT $PORT
 
-WORKDIR /nodeApp
+WORKDIR /clientes
 COPY . ./
 
 RUN npm install --test
