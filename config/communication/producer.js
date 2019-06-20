@@ -27,8 +27,6 @@ const KafkaService = {
                 attributes: 1 /* Use GZip compression for the payload */
             }
         ];
-        console.log("KAFKA")
-        console.log(event)
         //Send record to Kafka and log result/error
         producer.send(record, callback);
     }

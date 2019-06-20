@@ -50,11 +50,51 @@ module.exports = {
 addProduct: function(req, res, next){
    clientModel.find({cc:req.body.cc}, (err,result) => 
    {  
-
+      console.log("AddProduct")
       if(result[0]){
          client = JSON.parse(JSON.stringify(result[0]))
          items = client.products
          items.push(req.body.type)
+         data = {cc:req.body.cc,name:client.name, products:items, id:client.id}
+         commandHandler(data,'updateClient')
+         if(res)
+         return res.json({status:"success"})
+      }
+      
+   })
+   
+},
+
+deleteProduct: function(req, res, next){
+   clientModel.find({cc:req.body.cc}, (err,result) => 
+   {  
+      console.log("DeleteProduct")
+      if(result[0]){
+         client = JSON.parse(JSON.stringify(result[0]))
+         items = client.products
+         var index = items.indexOf(req.body.type)
+         if (index > -1) {
+           items.splice(index, 1);
+         }
+         data = {cc:req.body.cc,name:client.name, products:items, id:client.id}
+         commandHandler(data,'updateClient')
+         if(res)
+         return res.json({status:"success"})
+      }
+      
+   })
+   
+},
+
+updateProduct: function(req, res, next){
+   clientModel.find({cc:req.body.cc}, (err,result) => 
+   {  
+      console.log("AddProduct")
+      if(result[0]){
+         client = JSON.parse(JSON.stringify(result[0]))
+         items = client.products
+         var index = items.indexOf(req.body.oldType)
+         items[index]= req.body.type
          data = {cc:req.body.cc,name:client.name, products:items, id:client.id}
          commandHandler(data,'updateClient')
          if(res)
@@ -128,13 +168,14 @@ delete: function(req, res, next) {
     },
 
   rebuild: function(req, res, next) {
+     console.log("entra")
     result = executer.rebuild();
+    console.log(result)
     return res.json(result);
   },
 
   productsOfClient: function(req, res, next) {
     clientModel.find({cc: req.body.cc}, (err, result) => {
-      if(err) throw err;
       return res.json(JSON.parse(JSON.stringify(result[0])).products)
     })
   }

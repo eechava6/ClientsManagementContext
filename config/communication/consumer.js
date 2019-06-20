@@ -31,6 +31,7 @@ module.exports = {
       var buf = new Buffer.from(message.value, "binary");
       var decodedMessage = JSON.parse(buf.toString());
       const clientsAdapter = require('../../app/api/logic/adapter');
+
       reducer.reduceEvents(decodedMessage.event,decodedMessage.payload,clientsAdapter)
     })
   }
