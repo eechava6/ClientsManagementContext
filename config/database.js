@@ -32,7 +32,7 @@ var config = {
       name: 'clientBD'
     },
     port: process.env.PORT || 3000,
-    db: 'mongodb+srv://Carlos:1234@mongodb-iqhqy.mongodb.net/clientBD?retryWrites=true&w=majority'
+    db: 'mongodb://mongo-server/clientsQueries'
   }
 };
 
