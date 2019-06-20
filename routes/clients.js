@@ -11,6 +11,7 @@ router.post('/rebuild', clientAdapter.rebuild);
 router.post('/productsOfClient', clientAdapter.productsOfClient);
 router.get('/', clientAdapter.findAll);
 router.get('/registerClient',clientAdapter.loadRegister)
+router.get('/searchClient',clientAdapter.loadFindOne)
 router.get('/updateClient',clientAdapter.loadUpdate)
 router.get('/deleteClient',clientAdapter.loadDelete)
 module.exports = router;

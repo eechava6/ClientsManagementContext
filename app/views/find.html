@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Ver cliente</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- MATERIAL DESIGN ICONIC FONT -->
+        <link href="../css/dataTables.bootstrap4.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="../fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+		<!-- STYLE CSS -->
+		<link rel="stylesheet" href="../css/style.css">
+	</head>
+
+	<body>
+			<div class="topnav">
+					<a  href="http://localhost:3000/clients/registerClient">Registrar</a>
+					<a  href="http://localhost:3000/clients/deleteClient">Eliminar</a>
+					<a href="http://localhost:3000/clients/updateClient">Actualizar</a>
+					<a class="active"  href="http://localhost:3000/clients/searchClient">Buscar</a>
+					<a href="#about">Eventos</a>
+					<a href="#about">Datos</a>
+			</div>
+		<div class="wrapper">
+			<div class="inner">
+				<div class="image-holder">
+					<img src="../images/registration-form-6.jpg" alt="">
+				</div>
+				<form action="">
+					<h3>Buscar cliente</h3>
+					<div class="form-row" style ="text-align: center">
+							<input type="text" class="form-control" style="margin-left: auto;margin-right: auto;"id="cc" placeholder="Cedula">
+						</div>
+					<button id="register" style="margin-bottom: 15px">Buscar
+							<i class="zmdi zmdi-long-arrow-right"></i>
+					</button>
+
+					<div class="form-row" style ="text-align: center">
+							<input type="text" class="form-control" style="margin-left: auto;margin-right: auto;"id="name" placeholder="Nombre" disabled>
+							<input type="text" class="form-control" style="margin-left: auto;margin-right: auto;"id="date" placeholder="Fecha creación" disabled>
+					</div>	
+					<div class="form-row" id="products" style ="text-align: center">
+				
+					</div>
+				
+
+			</div>
+		</div>
+
+        <script src="../js/jquery-3.3.1.min.js"></script>
+        <script src="../js/jquery.dataTables.min.js"></script>
+        <script src="../js/dataTables.bootstrap4.min.js"></script>
+        <script src="../js/search.js"></script>
+        		<!-- Page level plugins -->
+
+
+	</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html> 

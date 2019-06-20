@@ -166,6 +166,14 @@ delete: function(req, res, next) {
          res.end();
        })
     },
+    
+    loadFindOne: function(req, res, next) {
+      fs.readFile('./app/views/find.html',function (err, data){
+         res.writeHead(200, {'Content-Type': 'text/html','Content-Length':data.length});
+         res.write(data);
+         res.end();
+       })
+    },
 
   rebuild: function(req, res, next) {
      console.log("entra")

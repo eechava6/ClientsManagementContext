@@ -14,7 +14,7 @@ $(document).ready(function() {
       });
 
 
-    $.get("/products/events").done(function(res) {
+    $.get("/clients/events").done(function(res) {
         Toast.fire({
             type: 'success',
             title: 'Se han cargado los datos exitosamente'
