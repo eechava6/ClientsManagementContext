@@ -6,6 +6,7 @@ LABEL maintainer="Jorge - Camilo - Esteban"
 
 ARG PORT=3000
 ENV PORT $PORT
+ENV kafka host.docker.internal
 
 WORKDIR /clientes
 COPY . ./

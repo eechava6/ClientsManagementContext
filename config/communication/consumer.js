@@ -3,7 +3,7 @@ const config = require('./config');
 const reducer = require('./reducer')
 
 
-const client = new kafka.KafkaClient(config.kafka_server);
+const client = new kafka.KafkaClient({kafkaHost:config.kafkaHost});
 
 module.exports = {
   startConsumer: function(){

@@ -3,7 +3,7 @@ const config = require('./config');
 
 
 const Producer = kafka.Producer;
-const client = new kafka.KafkaClient(config.kafka_server);
+const client = new kafka.KafkaClient({kafkaHost:config.kafkaHost});
 const producer = new Producer(client);
 
 producer.on('ready', async function() {
