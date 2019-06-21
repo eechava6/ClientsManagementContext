@@ -1,7 +1,7 @@
 module.exports = {
     eventStore: {
         type: 'mongodb',
-        host: 'localhost',                          // optional
+        host: 'mongo-server',                          // optional
         port: 27017,                                // optional
         dbName: 'domain-clients',                           // optional
         eventsCollectionName: 'events',             // optional

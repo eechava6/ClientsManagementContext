@@ -1,5 +1,5 @@
 var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/";
+var url = "mongodb://mongo-server:27017/";
 const eventDenormalizer = require('../../../config/cqrs-conf/cqrs').eventDenormalizer;
 
 module.exports = {

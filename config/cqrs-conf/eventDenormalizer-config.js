@@ -3,7 +3,7 @@ const commonConfig = require('./eventStore-conf');
 module.exports = {
     repository: {
         type: 'mongodb',
-        host: 'localhost',                          // optional
+        host: 'mongo-server',                          // optional
         port: 27017,                                // optional
         dbName: 'clientsQueries',                        // optional
         timeout: 10000                              // optional
