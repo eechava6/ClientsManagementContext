@@ -1,3 +1,18 @@
 # MicroservicioClientes
-A través de esto repositorio se hará un CRUD de clientes, además de diferentes operaciones propias del dominio. 
+Application for testing Kafka and microservices.
+
+### Requirements
+* Kafka
+* Nodejs
+* npm
+* MongoDB
+* Docker
+
+### Start the application
+
+```
+npm install
+npm start
+```
+
 
